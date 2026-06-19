@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome Back, Saavage Nutan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
+            --glass-bg: rgba(255, 255, 255, 0.25);
+            --glass-border: rgba(255, 255, 255, 0.5);
+            --text-dark: #2c3e50;
+            --text-light: #596275;
+            --accent-glow: rgba(255, 255, 255, 0.8);
+            --primary-pink: #ff9a9e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-gradient);
+            background-attachment: fixed;
+            color: var(--text-dark);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Particles */
+        #particles {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .particle {
+            position: absolute;
+            bottom: -10px;
+            width: 8px; height: 8px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 10px white, 0 0 20px var(--primary-pink);
+            animation: floatUp linear infinite;
+            opacity: 0;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(0) scale(1); opacity: 0; }
+            20% { opacity: 0.8; }
+            80% { opacity: 0.5; }
+            100% { transform: translateY(-100vh) scale(0.5); opacity: 0; }
+        }
+
+        /* Utility Classes */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+            padding: 40px;
+            position: relative;
+            z-index: 1;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(31, 38, 135, 0.25);
+        }
+
+        .heading-font { font-family: 'Playfair Display', serif; }
+        
+        .glowing-btn {
+            display: inline-block;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            background: rgba(255, 255, 255, 0.6);
+            border: 2px solid white;
+            border-radius: 50px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px var(--accent-glow);
+            backdrop-filter: blur(5px);
+        }
+        .glowing-btn:hover {
+            background: white;
+            box-shadow: 0 0 30px var(--accent-glow), 0 0 15px var(--primary-pink);
+            transform: scale(1.05);
+        }
+
+        /* Scroll Animation */
+        .hidden { opacity: 0; transform: translateY(40px); transition: all 1s ease-out; }
+        .show { opacity: 1; transform: translateY(0); }
+
+        /* Navigation Dots */
+        .nav-dots {
+            position: fixed; right: 20px; top: 50%;
+            transform: translateY(-50%);
+            display: flex; flex-direction: column; gap: 15px;
+            z-index: 100;
+        }
+        .nav-dot {
+            width: 12px; height: 12px;
+            background: rgba(255,255,255,0.5);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+        }
+        .nav-dot.active, .nav-dot:hover {
+            background: white;
+            transform: scale(1.5);
+            box-shadow: 0 0 10px white;
+        }
+
+        /* Sections */
+        section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 20px;
+            position: relative;
+        }
+        .container {
+            max-width: 1100px;
+            width: 100%;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        /* Specific Sections */
+        .img-placeholder {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            border-radius: inherit;
+            background: linear-gradient(45deg, #ffd1ff, #a6c1ee);
+            display: flex; align-items: center; justify-content: center;
+            color: rgba(0,0,0,0.5); font-weight: 600; font-size: 0.9rem;
+        }
+
+        /* Section 1: Hero */
+        #hero h1 {
+            font-size: 4.5rem;
+            margin-bottom: 20px;
+            background: -webkit-linear-gradient(45deg, #2c3e50, #ff6b81);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(255,255,255,0.4);
+        }
+        #hero p { font-size: 1.5rem; margin-bottom: 40px; color: var(--text-light); }
+        .hero-img-container {
+            width: 300px; height: 300px;
+            margin: 0 auto 40px;
+            border-radius: 50%;
+            padding: 10px;
+            background: rgba(255,255,255,0.3);
+            box-shadow: 0 0 30px rgba(255,255,255,0.5);
+        }
+        .hero-img-container img { border-radius: 50%; }
+
+        /* Section 3: YouTube */
+        .yt-card {
+            display: flex; flex-direction: column; align-items: center; gap: 20px;
+            max-width: 600px; margin: 0 auto;
+        }
+        .yt-stats { font-size: 4rem; font-weight: 700; color: #ff0000; text-shadow: 0 0 20px rgba(255,0,0,0.3); }
+
+        /* Section 4: Gallery */
+        .gallery-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;
+            margin-top: 40px;
+        }
+        .gallery-item {
+            height: 350px; border-radius: 20px; overflow: hidden;
+            position: relative; box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .gallery-item img { transition: transform 0.5s ease; }
+        .gallery-item:hover img { transform: scale(1.1); }
+        .gallery-caption {
+            position: absolute; bottom: 0; left: 0; width: 100%;
+            background: rgba(255,255,255,0.8); backdrop-filter: blur(5px);
+            padding: 15px; transform: translateY(100%); transition: transform 0.3s ease;
+        }
+        .gallery-item:hover .gallery-caption { transform: translateY(0); }
+
+        /* Section 5: What We Missed */
+        .features-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px;
+        }
+
+        /* Section 6: Fan Wall */
+        .masonry {
+            display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin-top: 40px;
+        }
+        .fan-card {
+            width: 300px; text-align: left; font-style: italic;
+        }
+
+        /* Section 7: Timeline */
+        .timeline { position: relative; max-width: 800px; margin: 40px auto 0; padding: 20px 0; }
+        .timeline::before {
+            content: ''; position: absolute; left: 50%; top: 0; bottom: 0;
+            width: 4px; background: rgba(255,255,255,0.5); transform: translateX(-50%); border-radius: 2px;
+        }
+        .timeline-item {
+            width: 50%; padding: 20px 40px; position: relative;
+        }
+        .timeline-item:nth-child(odd) { left: 0; text-align: right; }
+        .timeline-item:nth-child(even) { left: 50%; text-align: left; }
+        .timeline-dot {
+            position: absolute; top: 30px; width: 20px; height: 20px;
+            background: white; border-radius: 50%; box-shadow: 0 0 15px white;
+        }
+        .timeline-item:nth-child(odd) .timeline-dot { right: -10px; }
+        .timeline-item:nth-child(even) .timeline-dot { left: -10px; }
+
+        /* Section 8: Stream Room */
+        .stream-room {
+            background: linear-gradient(135deg, rgba(20,20,40,0.6), rgba(40,20,60,0.6));
+            border-radius: 30px; padding: 60px 20px; color: white;
+            box-shadow: 0 0 50px rgba(100,100,255,0.2) inset, 0 20px 40px rgba(0,0,0,0.2);
+            position: relative; overflow: hidden;
+        }
+        .stream-room::before {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(255,100,200,0.1) 0%, transparent 60%);
+            animation: pulseGlow 4s infinite alternate;
+        }
+        @keyframes pulseGlow { 0% { opacity: 0.5; } 100% { opacity: 1; } }
+
+        /* Confetti */
+        #confetti-container { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 999; }
+        .confetti-piece { position: absolute; width: 10px; height: 10px; opacity: 0; }
+
+        /* Music Button */
+        #music-toggle {
+            position: fixed; left: 20px; bottom: 20px; z-index: 100;
+            width: 50px; height: 50px; border-radius: 50%;
+            background: var(--glass-bg); backdrop-filter: blur(10px);
+            border: 1px solid white; display: flex; align-items: center; justify-content: center;
+            cursor: pointer; box-shadow: 0 0 15px rgba(255,255,255,0.5); font-size: 1.2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            #hero h1 { font-size: 3rem; }
+            .timeline::before { left: 30px; }
+            .timeline-item { width: 100%; padding-left: 70px; text-align: left !important; }
+            .timeline-item:nth-child(even) { left: 0; }
+            .timeline-item:nth-child(odd) .timeline-dot, .timeline-item:nth-child(even) .timeline-dot { left: 20px; }
+            .nav-dots { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="particles"></div>
+    <div id="confetti-container"></div>
+
+    <button id="music-toggle">🎵</button>
+
+    <div class="nav-dots">
+        <div class="nav-dot active" onclick="scrollToSec('sec1')"></div>
+        <div class="nav-dot" onclick="scrollToSec('sec2')"></div>
+        <div class="nav-dot" onclick="scrollToSec('sec3')"></div>
+        <div class="nav-dot" onclick="scrollToSec('sec4')"></div>
+        <div class="nav-dot" onclick="scrollToSec('sec5')"></div>
+        <div class="nav-dot" onclick="scrollToSec('sec6')"></div>
+        <div class="nav-dot" onclick="scrollToSec('sec7')"></div>
+        <div class="nav-dot" onclick="scrollToSec('sec8')"></div>
+        <div class="nav-dot" onclick="scrollToSec('sec9')"></div>
+        <div class="nav-dot" onclick="scrollToSec('sec10')"></div>
+    </div>
+
+    <section id="sec1">
+        <div class="container hidden">
+            <div class="hero-img-container">
+                <img src="saavage-nutan-1.jpg" alt="saavage-nutan-1" class="img-placeholder" onerror="this.outerHTML='<div class=\'img-placeholder\'>saavage-nutan-1.jpg</div>'">
+            </div>
+            <h1 class="heading-font">Welcome Back,<br>Saavage Nutan</h1>
+            <p>The stream feels alive again because you are back.</p>
+            <a onclick="scrollToSec('sec2')" class="glowing-btn">Start the Celebration</a>
+        </div>
+    </section>
+
+    <section id="sec2">
+        <div class="container hidden">
+            <div class="glass-card">
+                <h2 class="heading-font" style="font-size: 2.5rem; margin-bottom: 20px;">We Missed Your Light</h2>
+                <p style="font-size: 1.2rem; line-height: 1.8; color: var(--text-light);">
+                    Your presence brings so much comfort, happiness, and positive energy to everyone who tunes in. 
+                    The chat hasn't been the same without your vibrant smile and your cozy energy. 
+                    Taking a break is always necessary, but having you back feels like home. 
+                    Thank you for returning to the community that adores you.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="sec3">
+        <div class="container hidden">
+            <h2 class="heading-font" style="font-size: 2.5rem; margin-bottom: 40px;">Celebrating the Journey</h2>
+            <div class="glass-card yt-card">
+                <div style="width: 100px; height: 100px; border-radius: 50%; overflow: hidden; background: white; padding: 5px;">
+                     <img src="saavage-nutan-2.jpg" alt="saavage-nutan-2" class="img-placeholder" onerror="this.outerHTML='<div class=\'img-placeholder\'>YT Avatar</div>'">
+                </div>
+                <h3>Saavage Nutan</h3>
+                <p>Gaming, Chats & Cozy Vibes</p>
+                <div class="yt-stats" id="sub-counter">0</div>
+                <p>Subscribers</p>
+                <a href="#" class="glowing-btn" style="background: rgba(255,0,0,0.1); border-color: #ff4757; color: #ff4757;">Subscribe</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="sec4">
+        <div class="container hidden">
+            <h2 class="heading-font" style="font-size: 2.5rem; margin-bottom: 20px;">Moments We Cherish</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item glass-card" style="padding:0;">
+                    <img src="saavage-nutan-3.jpg" alt="saavage-nutan-3" class="img-placeholder" onerror="this.outerHTML='<div class=\'img-placeholder\'>saavage-nutan-3.jpg</div>'">
+                    <div class="gallery-caption">That winning smile!</div>
+                </div>
+                <div class="gallery-item glass-card" style="padding:0;">
+                    <img src="saavage-nutan-4.jpg" alt="saavage-nutan-4" class="img-placeholder" onerror="this.outerHTML='<div class=\'img-placeholder\'>saavage-nutan-4.jpg</div>'">
+                    <div class="gallery-caption">Intense gaming focus</div>
+                </div>
+                <div class="gallery-item glass-card" style="padding:0;">
+                    <img src="saavage-nutan-5.jpg" alt="saavage-nutan-5" class="img-placeholder" onerror="this.outerHTML='<div class=\'img-placeholder\'>saavage-nutan-5.jpg</div>'">
+                    <div class="gallery-caption">Cozy chat streams</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="sec5">
+        <div class="container hidden">
+            <h2 class="heading-font" style="font-size: 2.5rem; margin-bottom: 40px;">What We Missed Most</h2>
+            <div class="features-grid">
+                <div class="glass-card">
+                    <h3 style="font-size: 1.5rem; margin-bottom: 15px;">✨ Your Radiant Smile</h3>
+                    <p>It literally lights up the entire stream and makes a bad day instantly better.</p>
+                </div>
+                <div class="glass-card">
+                    <h3 style="font-size: 1.5rem; margin-bottom: 15px;">🎙️ Your Soothing Voice</h3>
+                    <p>The best background sound whether we are studying, working, or just chilling.</p>
+                </div>
+                <div class="glass-card">
+                    <h3 style="font-size: 1.5rem; margin-bottom: 15px;">🎮 The Chaotic Energy</h3>
+                    <p>The perfect blend of wholesome interactions and peak gaming moments.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="sec6">
+        <div class="container hidden">
+            <h2 class="heading-font" style="font-size: 2.5rem; margin-bottom: 40px;">Fan Love Wall</h2>
+            <div class="masonry">
+                <div class="glass-card fan-card">
+                    <p>"We missed your streams so much. Welcome back! 💖"</p>
+                </div>
+                <div class="glass-card fan-card">
+                    <p>"Your comeback made the community smile again. So glad you are here."</p>
+                </div>
+                <div class="glass-card fan-card">
+                    <p>"Keep shining, Saavage Nutan. We are always behind you!"</p>
+                </div>
+                <div class="glass-card fan-card">
+                    <p>"The best streamer is finally back online! LFG! 🔥"</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="sec7">
+        <div class="container hidden">
+            <h2 class="heading-font" style="font-size: 2.5rem;">The Journey Continues</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="glass-card" style="padding: 20px;">
+                        <h3>Start of Journey</h3>
+                        <p style="font-size: 0.9rem;">The first time the 'Go Live' button was clicked.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="glass-card" style="padding: 20px;">
+                        <h3>Community Growth</h3>
+                        <p style="font-size: 0.9rem;">Building a wholesome and dedicated family.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="glass-card" style="padding: 20px;">
+                        <h3>8.8K Milestone</h3>
+                        <p style="font-size: 0.9rem;">Hitting 8,800+ amazing subscribers!</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="glass-card" style="padding: 20px; border: 2px solid white;">
+                        <h3>The Comeback</h3>
+                        <p style="font-size: 0.9rem;">Returning stronger, happier, and brighter.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="sec8">
+        <div class="container hidden">
+            <div class="stream-room glass-card">
+                <h2 class="heading-font" style="font-size: 3rem; margin-bottom: 20px; text-shadow: 0 0 15px rgba(255,255,255,0.8);">Back to the Desk</h2>
+                <p style="font-size: 1.2rem; margin-bottom: 30px;">
+                    RGB lights on. Camera in focus. Chat moving fast. The peaceful yet exciting atmosphere of the stream room is ready for you again.
+                </p>
+                <div style="height: 200px; border-radius: 15px; overflow: hidden; position: relative;">
+                    <img src="saavage-nutan-5.jpg" alt="saavage-nutan-5" class="img-placeholder" onerror="this.outerHTML='<div class=\'img-placeholder\' style=\'background: rgba(0,0,0,0.3); color: white;\'>Cozy Setup (saavage-nutan-5.jpg)</div>'">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="sec9">
+        <div class="container hidden">
+            <h2 class="heading-font" style="font-size: 2.5rem; margin-bottom: 30px;">For the Next Chapter</h2>
+            <div class="glass-card" style="max-width: 800px; margin: 0 auto;">
+                <p style="font-size: 1.2rem; line-height: 1.8;">
+                    Every great streamer needs a breather. Returning takes confidence, and staying true to your creativity is your superpower. 
+                    Remember that your community doesn't just watch for the game; they stay for <strong>you</strong>. 
+                    Keep your consistency, trust your unique vibe, and know that you have thousands of people cheering you on every single time you hit 'Live'.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="sec10">
+        <div class="container hidden">
+            <h1 class="heading-font" style="font-size: 4rem; margin-bottom: 20px; color: #fff; text-shadow: 0 0 20px rgba(255,100,150,0.8);">
+                Welcome Back,<br>Saavage Nutan
+            </h1>
+            <p style="font-size: 1.5rem; margin-bottom: 40px; color: #fff;">
+                Your stream, your smile, and your energy were truly missed.
+            </p>
+            <button onclick="triggerConfetti()" class="glowing-btn" style="font-size: 1.5rem; padding: 20px 50px;">
+                Welcome Back Streamer 🎉
+            </button>
+        </div>
+    </section>
+
+    <script>
+        // 1. Particle Generator
+        const particleContainer = document.getElementById('particles');
+        for(let i=0; i<40; i++) {
+            let span = document.createElement('span');
+            span.className = 'particle';
+            span.style.left = Math.random() * 100 + 'vw';
+            span.style.animationDuration = (Math.random() * 5 + 4) + 's';
+            span.style.animationDelay = Math.random() * 5 + 's';
+            particleContainer.appendChild(span);
+        }
+
+        // 2. Scroll Animation Observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.hidden').forEach(el => observer.observe(el));
+
+        // 3. Navigation Sync & Scroll
+        const sections = document.querySelectorAll('section');
+        const navDots = document.querySelectorAll('.nav-dot');
+        
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+            navDots.forEach((dot, index) => {
+                dot.classList.remove('active');
+                if (current === `sec${index + 1}`) {
+                    dot.classList.add('active');
+                }
+            });
+        });
+
+        function scrollToSec(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // 4. Animated Subscriber Counter
+        const counterEl = document.getElementById('sub-counter');
+        let hasCounted = false;
+        const countObserver = new IntersectionObserver((entries) => {
+            if(entries[0].isIntersecting && !hasCounted) {
+                hasCounted = true;
+                let count = 0;
+                let target = 8800;
+                let inc = target / 100;
+                let timer = setInterval(() => {
+                    count += inc;
+                    if(count >= target) {
+                        clearInterval(timer);
+                        counterEl.innerText = "8.8K";
+                    } else {
+                        counterEl.innerText = Math.floor(count);
+                    }
+                }, 20);
+            }
+        }, { threshold: 0.5 });
+        countObserver.observe(document.getElementById('sec3'));
+
+        // 5. Confetti Logic
+        function triggerConfetti() {
+            const container = document.getElementById('confetti-container');
+            container.innerHTML = ''; // clear previous
+            const colors = ['#ff9a9e', '#fecfef', '#a1c4fd', '#c2e9fb', '#ffffff', '#ffd1ff'];
+            
+            for(let i=0; i<100; i++) {
+                let conf = document.createElement('div');
+                conf.className = 'confetti-piece';
+                conf.style.left = Math.random() * 100 + 'vw';
+                conf.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                conf.style.top = '-10px';
+                
+                let duration = Math.random() * 3 + 2;
+                conf.style.transition = `top ${duration}s ease-in, left ${duration}s ease-in-out, transform ${duration}s linear`;
+                
+                container.appendChild(conf);
+                
+                setTimeout(() => {
+                    conf.style.opacity = '1';
+                    conf.style.top = '100vh';
+                    conf.style.left = (Math.random() * 100) + 'vw';
+                    conf.style.transform = `rotate(${Math.random() * 720}deg)`;
+                }, 50);
+
+                setTimeout(() => { conf.remove(); }, duration * 1000 + 100);
+            }
+        }
+
+        // 6. Music Toggle Placeholder
+        let isPlaying = false;
+        document.getElementById('music-toggle').addEventListener('click', function() {
+            isPlaying = !isPlaying;
+            this.innerText = isPlaying ? '⏸️' : '🎵';
+            this.style.boxShadow = isPlaying ? '0 0 20px #ff9a9e' : '0 0 15px rgba(255,255,255,0.5)';
+            // Audio logic would go here
+        });
+    </script>
+</body>
+</html>
